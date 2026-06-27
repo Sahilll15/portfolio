@@ -262,12 +262,17 @@ export const stats: Stat[] = [
   {
     num: "7×",
     label: "Hackathon Winner & Finalist",
-    sub: "2022 — 2024",
+    sub: "2023 — 2025",
     feature: true,
     count: { to: 7, suffix: "×" },
   },
   { num: "SIH '23", label: "Smart India Hackathon Finalist", sub: "National level" },
-  { num: "MLSC 2.0", label: "Back-to-back Champions", sub: "AI Smart City Dashboard" },
+  {
+    num: "2×",
+    label: "MLSC COHERENCE Champion",
+    sub: "Back-to-back · AI Smart City",
+    count: { to: 2, suffix: "×" },
+  },
   {
     num: "8.48",
     label: "CGPA — B.E. Information Technology",
@@ -282,3 +287,107 @@ export const education = {
   period: "2021 — 2025",
   grade: "8.48 CGPA",
 };
+
+export interface Award {
+  emoji: string;
+  title: string;
+  result: string;
+  year: string;
+  detail: string;
+}
+
+/* Verified from Sahil's GitHub profile README + LinkedIn. */
+export const awards: Award[] = [
+  {
+    emoji: "🏆",
+    title: "MLSC COHERENCE Hackathon",
+    result: "Winner · back-to-back",
+    year: "2024 & 2025",
+    detail:
+      "Two-time champion with Team Logic Lab for the AI-Powered Smart City Dashboard — real-time civic alerts, AQI & flood detection, AI energy forecasting and an SOS network.",
+  },
+  {
+    emoji: "🥇",
+    title: "INNOV8 2.0 Hackathon",
+    result: "Winner",
+    year: "2024",
+    detail: "First place for a full-stack product built end-to-end under hackathon pressure.",
+  },
+  {
+    emoji: "📄",
+    title: "Oscillation — Paper Presentation",
+    result: "Winner · twice",
+    year: "2023 & 2024",
+    detail: "Back-to-back wins presenting technical research and original ideas.",
+  },
+  {
+    emoji: "💻",
+    title: "Code-O-Fiesta",
+    result: "Winner",
+    year: "2023",
+    detail: "Top of the field in a competitive coding & build contest.",
+  },
+  {
+    emoji: "⚡",
+    title: "VNPS Competition",
+    result: "Winner",
+    year: "2023",
+    detail: "Another build-and-pitch win on the board.",
+  },
+  {
+    emoji: "🎯",
+    title: "Smart India Hackathon 2023",
+    result: "National Finalist",
+    year: "2023",
+    detail:
+      "Finalist at India's largest hackathon (SIH), building a multilingual solution for the undertrial-prisoners problem statement.",
+  },
+  {
+    emoji: "📜",
+    title: "NoteShare",
+    result: "Copyright certified",
+    year: "2024",
+    detail:
+      "The student notes platform Sahil co-built (with Aditya Shah) was officially granted a copyright certificate.",
+  },
+];
+
+export interface LinkedInPost {
+  tag: string;
+  date: string;
+  text: string;
+  reactions: number;
+  comments: number;
+}
+
+/* Reconstructed from real posts. Swap in live embeds once you share post URLs. */
+export const linkedinPosts: LinkedInPost[] = [
+  {
+    tag: "Career",
+    date: "10mo",
+    text: "I'm happy to share that I'm starting a new position as Associate Software Engineer at Contentstack! 🎉",
+    reactions: 358,
+    comments: 71,
+  },
+  {
+    tag: "Hackathon",
+    date: "1yr",
+    text: "Team Logic Lab defended our title at MLSC 2.0 — champions once again! 🏆 Our AI-Powered Smart City Dashboard brought real-time alerts, AQI & flood detection, AI energy forecasting and an SOS network to life.",
+    reactions: 382,
+    comments: 25,
+  },
+  {
+    tag: "Milestone",
+    date: "1yr",
+    text: "Successfully completed my Full Stack Developer internship at Atomic House 🚀 Six months shipping web-app features and a browser extension, and solving genuinely hard problems end to end.",
+    reactions: 127,
+    comments: 10,
+  },
+  {
+    tag: "Project",
+    date: "1yr",
+    text: "NoteShare has officially been granted a copyright certificate! 📜 A one-stop platform for students to share notes — with chat, a coin economy and AI resume review.",
+    reactions: 203,
+    comments: 16,
+  },
+];

@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { fancyPointer } from "../lib/env";
 
-/** Custom cursor: an instant lime dot + a lagging ring that swells over targets. */
+/**
+ * Custom cursor: an instant lime dot + a lagging ring that swells over targets
+ * and morphs into a labelled pill over elements with [data-cursor-text].
+ */
 export default function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
+  const [label, setLabel] = useState("");
 
   useEffect(() => {
     if (!fancyPointer()) return;
@@ -23,7 +27,17 @@ export default function Cursor() {
       if (dot.current) dot.current.style.transform = `translate(${mx}px, ${my}px)`;
     };
     const onOver = (e: MouseEvent) => {
-      const hit = (e.target as HTMLElement).closest("a, button, input, textarea, [data-cursor]");
+      const el = e.target as HTMLElement;
+      const labelled = el.closest<HTMLElement>("[data-cursor-text]");
+      if (labelled) {
+        setLabel(labelled.dataset.cursorText || "");
+        document.body.classList.add("cursor-label");
+        document.body.classList.remove("cursor-hover");
+        return;
+      }
+      setLabel("");
+      document.body.classList.remove("cursor-label");
+      const hit = el.closest("a, button, input, textarea, [data-cursor]");
       document.body.classList.toggle("cursor-hover", !!hit);
     };
     const loop = () => {
@@ -42,7 +56,7 @@ export default function Cursor() {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
-      document.body.classList.remove("has-cursor", "cursor-hover");
+      document.body.classList.remove("has-cursor", "cursor-hover", "cursor-label");
     };
   }, []);
 
@@ -50,7 +64,9 @@ export default function Cursor() {
   return (
     <>
       <div className="cursor-dot" ref={dot} aria-hidden="true" />
-      <div className="cursor-ring" ref={ring} aria-hidden="true" />
+      <div className="cursor-ring" ref={ring} aria-hidden="true">
+        <span className="cursor-text">{label}</span>
+      </div>
     </>
   );
 }

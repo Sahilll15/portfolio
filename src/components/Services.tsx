@@ -10,7 +10,7 @@ export default function Services() {
           <Reveal>
             <span className="eyebrow">What I Do</span>
           </Reveal>
-          <Reveal delay={0.05}>
+          <Reveal delay={0.05} mask>
             <h2 className="section-title">
               Building across the <span className="accent">full stack</span>
             </h2>

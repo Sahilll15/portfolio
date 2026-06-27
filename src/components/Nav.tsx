@@ -8,14 +8,19 @@ const LINKS = [
   { label: "Experience", href: "#experience" },
   { label: "Work", href: "#work" },
   { label: "Awards", href: "#awards" },
+  { label: "Writing", href: "#writing" },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      setPastHero(window.scrollY > 560);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -33,7 +38,10 @@ export default function Nav() {
     <header className={`nav ${scrolled ? "scrolled" : ""}`}>
       <div className="container nav-inner">
         <a href="#top" className="brand" aria-label={`${profile.name} — home`}>
-          <span className="brand-mark">{profile.initials}</span>
+          <span className="brand-badge">
+            <span className={`brand-mark ${pastHero ? "hide" : ""}`}>{profile.initials}</span>
+            <img className={`nav-avatar ${pastHero ? "show" : ""}`} src="/avatar.jpg" alt="" />
+          </span>
           <span>{profile.name}</span>
         </a>
 

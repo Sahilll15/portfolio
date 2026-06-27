@@ -9,6 +9,8 @@ import { FiArrowUpRight, FiArrowDownRight } from "react-icons/fi";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
 import Magnetic from "./Magnetic";
+import HeroBackdrop from "./HeroBackdrop";
+import SplitText from "./SplitText";
 import { profile, heroTags } from "../data/portfolio";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -45,6 +47,7 @@ export default function Hero() {
 
   return (
     <section className="hero" id="top" onMouseMove={onMove} onMouseLeave={onLeave}>
+      <HeroBackdrop />
       <div className="container hero-grid">
         <div className="hero-copy">
           <motion.span
@@ -62,9 +65,11 @@ export default function Hero() {
             <motion.span className="line" custom={1} variants={rise} initial="hidden" animate="show">
               Hey, I'm
             </motion.span>
-            <motion.span className="line" custom={2} variants={rise} initial="hidden" animate="show">
-              <em>Sahil Chalke.</em>
-            </motion.span>
+            <span className="line">
+              <em>
+                <SplitText text="Sahil Chalke." delay={0.22} />
+              </em>
+            </span>
             <motion.span className="line" custom={3} variants={rise} initial="hidden" animate="show">
               {profile.role}
             </motion.span>
