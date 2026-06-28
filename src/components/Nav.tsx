@@ -12,7 +12,6 @@ const LINKS = [
   { label: "Work", href: "#work" },
   { label: "Awards", href: "#awards" },
   { label: "Writing", href: "#writing" },
-  { label: "Uses", href: "/uses" },
 ];
 
 export default function Nav() {
