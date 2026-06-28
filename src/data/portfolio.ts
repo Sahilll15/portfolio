@@ -202,6 +202,15 @@ export interface Project {
 export const projects: Project[] = [
   {
     index: "01",
+    name: "netdoctor",
+    description:
+      "A network health-check CLI that walks the DevOps debugging ladder (DNS → TCP → HTTP/TLS) as a live “vitals monitor”, then grades each host A+→F on reachability, performance and latency — with a concurrent fleet view, a --watch dashboard with latency sparklines, JSON output and a fully tested core + CI.",
+    tags: ["Python", "DevOps", "CLI"],
+    link: "https://github.com/Sahilll15/netdoctor",
+    flag: "New",
+  },
+  {
+    index: "02",
     name: "NoteShare",
     description:
       "A collaborative platform for students to buy, share and organise college notes — coin economy, real-time chat & video, to-dos and AI resume review. A copyright-certified team product.",
@@ -210,7 +219,7 @@ export const projects: Project[] = [
     flag: "Copyrighted",
   },
   {
-    index: "02",
+    index: "03",
     name: "RecallDSA",
     description:
       "Master data structures & algorithms with spaced-repetition revision and GitHub integration — so the problems you solve actually stick.",
@@ -219,7 +228,7 @@ export const projects: Project[] = [
     live: "https://recall-dsa.vercel.app",
   },
   {
-    index: "03",
+    index: "04",
     name: "Video Chat",
     description:
       "Browser-based real-time video calling with shareable room codes — peer-to-peer WebRTC streams, no installs, just send a link and you're connected.",
@@ -228,7 +237,7 @@ export const projects: Project[] = [
     live: "https://videochat-ebon.vercel.app",
   },
   {
-    index: "04",
+    index: "05",
     name: "ChatBridge",
     description:
       "A context-aware AI chat SDK you can drop into any website or app — conversational AI in your product with minimal setup.",
@@ -236,7 +245,7 @@ export const projects: Project[] = [
     link: "https://github.com/Sahilll15/ChatBridge",
   },
   {
-    index: "05",
+    index: "06",
     name: "DevDose Notifier",
     description:
       "An AI-powered notifier that generates and delivers fresh daily learning content on React, NestJS and system design — your automated dev dose.",
@@ -245,7 +254,7 @@ export const projects: Project[] = [
     live: "https://devdose-notifier.onrender.com/",
   },
   {
-    index: "06",
+    index: "07",
     name: "Image Vault · Blockchain",
     description:
       "Decentralised image storage that pins files to IPFS and records their hashes on-chain via Pinata — tamper-proof galleries, no central server.",
