@@ -136,9 +136,9 @@ export default function About() {
               </div>
             ))}
           </div>
-
-          <Signature />
         </div>
+
+        <Signature />
       </div>
     </section>
   );

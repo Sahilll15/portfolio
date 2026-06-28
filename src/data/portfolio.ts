@@ -137,16 +137,19 @@ export interface Experience {
   role: string;
   period: string;
   badge?: string;
+  group?: "work" | "community";
   points: string[];
   stack: string[];
 }
 
 export const experiences: Experience[] = [
+  /* ---- Real-world / professional ---- */
   {
     company: "Contentstack",
     role: "Associate Software Engineer · Mumbai (Hybrid)",
     period: "Jan 2025 — Present",
     badge: "Current",
+    group: "work",
     points: [
       "Build and maintain features for the Contentstack composable CMS UI using React and TypeScript, contributing across the product surface.",
       "Design and maintain end-to-end test automation with Playwright — covering core editorial flows like the entry list, advanced search and auto-draft — to keep releases safe at scale.",
@@ -158,6 +161,7 @@ export const experiences: Experience[] = [
     company: "Atomic House",
     role: "Full Stack Developer · Internship · Remote",
     period: "Jun 2024 — Dec 2024",
+    group: "work",
     points: [
       "Designed and built an interactive web application with React.js and Next.js, delivering a dynamic, responsive interface.",
       "Boosted UX with GraphQL and Apollo for efficient data fetching, TanStack Query for caching and state, and optimistic updates for instant feedback.",
@@ -169,6 +173,7 @@ export const experiences: Experience[] = [
     company: "HubX",
     role: "Full Stack Developer",
     period: "Dec 2023 — May 2024",
+    group: "work",
     points: [
       "Led development of scalable, maintainable web apps across Node.js, Express, React, MongoDB, Firebase and Next.js.",
       "Designed robust RESTful APIs and integrated third-party services such as the Google Maps API for location-based features.",
@@ -180,12 +185,39 @@ export const experiences: Experience[] = [
     company: "Nuvera Infotech",
     role: "Full Stack Developer",
     period: "May 2023 — Sep 2023",
+    group: "work",
     points: [
       "Built scalable web applications on the MERN stack and integrated AWS services for cloud-based functionality.",
       "Crafted responsive, accessible UIs with Tailwind CSS, Bootstrap and Material-UI across devices and browsers.",
       "Optimised performance and SEO via server-side rendering and static generation with Next.js and React.",
     ],
     stack: ["MERN", "Next.js", "AWS", "Tailwind", "Material UI"],
+  },
+
+  /* ---- College & community ---- */
+  {
+    company: "CSI · VCET",
+    role: "Web Team Lead · Part-time · On-site",
+    period: "Aug 2024 — Aug 2025",
+    group: "community",
+    points: [
+      "Led the web team for VCET's Computer Society of India student chapter — mentoring members and owning the chapter's web presence.",
+      "Designed and shipped event and registration sites used across college fests and tech events.",
+      "Set front-end conventions and reviewed teammates' contributions to keep delivery consistent and on time.",
+    ],
+    stack: ["React", "JavaScript", "Leadership", "Mentoring"],
+  },
+  {
+    company: "VCET Hackathon",
+    role: "Technical Head · Community",
+    period: "2022 — 2024",
+    group: "community",
+    points: [
+      "Grew from Technical Team Member to Deputy Technical Head to Technical Head across editions of VCET's flagship hackathon.",
+      "Built and ran the registration and judging tooling, and kept the event's tech running on the day.",
+      "Mentored first-time builders and coordinated the technical volunteer team.",
+    ],
+    stack: ["Web", "Event Tech", "Mentoring", "Leadership"],
   },
 ];
 

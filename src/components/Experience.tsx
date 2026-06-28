@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { FiChevronRight } from "react-icons/fi";
 import Reveal from "./Reveal";
 import { experiences } from "../data/portfolio";
 
-// Stable, hand-picked "leetspeak" short hashes — newest first.
-const HASHES = ["fee1ace", "a70b1cf", "decaf00", "5ca77ed"];
+// Stable, hand-picked "leetspeak" short hashes per role.
+const HASH: Record<string, string> = {
+  Contentstack: "fee1ace",
+  "Atomic House": "a70b1cf",
+  HubX: "decaf00",
+  "Nuvera Infotech": "5ca77ed",
+  "CSI · VCET": "c0ffee5",
+  "VCET Hackathon": "b0bafe7",
+};
 const deriveHash = (s: string) => {
   let h = 0;
   for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
@@ -14,6 +21,8 @@ const deriveHash = (s: string) => {
 
 const shortRole = (role: string) => role.split("·")[0].trim();
 const startYear = (period: string) => (period.match(/\d{4}/) || ["—"])[0];
+
+const firstCommunity = experiences.findIndex((x) => x.group === "community");
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -35,8 +44,8 @@ export default function Experience() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="lead">
-              From scrappy startups to a Gartner-recognised platform. Expand any
-              commit to read the diff.
+              From scrappy startups to a Gartner-recognised platform — plus the
+              college communities I built with. Expand any commit to read the diff.
             </p>
           </Reveal>
         </div>
@@ -70,14 +79,21 @@ export default function Experience() {
                   const isOpen = open === i;
                   const isHead = i === 0;
                   return (
-                    <motion.div
-                      key={x.company}
-                      className={`gl-row ${isHead ? "head" : ""} ${isOpen ? "open" : ""}`}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.25 + i * 0.1, duration: 0.45, ease }}
-                    >
+                    <Fragment key={x.company}>
+                      {i === firstCommunity && (
+                        <div className="gl-cmd gl-checkout">
+                          <span className="gl-prompt">❯</span> git checkout{" "}
+                          <span className="gl-flag">community</span>
+                          <span className="gl-comment"># college &amp; communities</span>
+                        </div>
+                      )}
+                      <motion.div
+                        className={`gl-row ${isHead ? "head" : ""} ${isOpen ? "open" : ""}`}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.25 + i * 0.1, duration: 0.45, ease }}
+                      >
                       <div className="gl-rail" aria-hidden="true">
                         <span className="gl-node" />
                       </div>
@@ -89,7 +105,7 @@ export default function Experience() {
                           aria-expanded={isOpen}
                           aria-controls={`commit-${i}`}
                         >
-                          <span className="gl-hash">{HASHES[i] ?? deriveHash(x.company)}</span>
+                          <span className="gl-hash">{HASH[x.company] ?? deriveHash(x.company)}</span>
                           {isHead && (
                             <span className="gl-ref">
                               (<span className="gl-head">HEAD</span> →{" "}
@@ -141,7 +157,8 @@ export default function Experience() {
                           )}
                         </AnimatePresence>
                       </div>
-                    </motion.div>
+                      </motion.div>
+                    </Fragment>
                   );
                 })}
               </div>
@@ -153,8 +170,8 @@ export default function Experience() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.25 + experiences.length * 0.1, duration: 0.5 }}
               >
-                <span className="gl-check">✓</span> {experiences.length} commits on
-                branch <span className="gl-branch-name">main</span> · working tree
+                <span className="gl-check">✓</span> {experiences.length} commits across{" "}
+                <span className="gl-branch-name">main</span> + community · working tree
                 clean
                 <span className="gl-cursor" aria-hidden="true" />
               </motion.div>
