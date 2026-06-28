@@ -48,7 +48,7 @@ export const profile = {
   status: "Associate Software Engineer @ Contentstack",
   available: "Open to Full Stack roles",
   tagline:
-    "Associate Software Engineer @ Contentstack. MERN & iOS developer who turns ideas into scalable, high-performance products — 7× hackathon winner & finalist.",
+    "I turn ideas into fast, reliable products — full-stack on the web, native on iOS.",
   about:
     "I'm Sahil Chalke, an Associate Software Engineer at Contentstack, passionate about building scalable and impactful web applications. With expertise in the MERN stack and iOS development, I love turning ideas into functional, high-performance solutions — and I learn best by building, whether that's competing in hackathons, contributing to open source, or mentoring peers.",
   socials: {
@@ -276,12 +276,6 @@ export const stats: Stat[] = [
     sub: "Back-to-back · AI Smart City",
     count: { to: 2, suffix: "×" },
   },
-  {
-    num: "8.48",
-    label: "CGPA — B.E. Information Technology",
-    sub: "VCET, 2021 — 2025",
-    count: { to: 8.48, decimals: 2 },
-  },
 ];
 
 export const education = {
@@ -352,46 +346,6 @@ export const awards: Award[] = [
     year: "2024",
     detail:
       "The student notes platform Sahil co-built (with Aditya Shah) was officially granted a copyright certificate.",
-  },
-];
-
-export interface LinkedInPost {
-  tag: string;
-  date: string;
-  text: string;
-  reactions: number;
-  comments: number;
-}
-
-/* Reconstructed from real posts. Swap in live embeds once you share post URLs. */
-export const linkedinPosts: LinkedInPost[] = [
-  {
-    tag: "Career",
-    date: "10mo",
-    text: "I'm happy to share that I'm starting a new position as Associate Software Engineer at Contentstack! 🎉",
-    reactions: 358,
-    comments: 71,
-  },
-  {
-    tag: "Hackathon",
-    date: "1yr",
-    text: "Team Logic Lab defended our title at MLSC 2.0 — champions once again! 🏆 Our AI-Powered Smart City Dashboard brought real-time alerts, AQI & flood detection, AI energy forecasting and an SOS network to life.",
-    reactions: 382,
-    comments: 25,
-  },
-  {
-    tag: "Milestone",
-    date: "1yr",
-    text: "Successfully completed my Full Stack Developer internship at Atomic House 🚀 Six months shipping web-app features and a browser extension, and solving genuinely hard problems end to end.",
-    reactions: 127,
-    comments: 10,
-  },
-  {
-    tag: "Project",
-    date: "1yr",
-    text: "NoteShare has officially been granted a copyright certificate! 📜 A one-stop platform for students to share notes — with chat, a coin economy and AI resume review.",
-    reactions: 203,
-    comments: 16,
   },
 ];
 

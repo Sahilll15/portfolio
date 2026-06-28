@@ -128,7 +128,7 @@ export default function Bento() {
           <Reveal className="bento-cell">
             <div className="bento-tile bento-clock">
               <span className="bento-big mono">{time || "—"}</span>
-              <span className="bento-cap">IST · Virar, India</span>
+              <span className="bento-cap">IST · India</span>
             </div>
           </Reveal>
         </div>

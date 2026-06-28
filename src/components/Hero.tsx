@@ -141,12 +141,12 @@ export default function Hero() {
             )}
           </div>
           <div className="portrait-badge tl">
-            <span className="num">7×</span>
-            <span className="cap">Hackathons</span>
-          </div>
-          <div className="portrait-badge br">
             <span className="num accent">MERN</span>
             <span className="cap">+ iOS</span>
+          </div>
+          <div className="portrait-badge br">
+            <span className="num accent">E2E</span>
+            <span className="cap">Playwright</span>
           </div>
         </motion.div>
       </div>

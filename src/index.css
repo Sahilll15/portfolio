@@ -328,37 +328,31 @@ h4 {
 }
 .about-card-inner {
   position: relative;
-  padding: 14px;
+  padding: 30px;
   border-radius: var(--radius-lg);
   background: linear-gradient(165deg, var(--surface-2), var(--bg-2));
   border: 1px solid var(--line-soft);
   box-shadow: 0 40px 80px -42px var(--shadow-strong);
-}
-.about-portrait {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  border-radius: calc(var(--radius-lg) - 6px);
   overflow: hidden;
 }
-.about-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 22%;
-  filter: grayscale(0.26) contrast(1.06) brightness(1.02);
-}
-.about-photo-tint {
+/* faint grid texture */
+.about-card-inner::before {
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(155deg, var(--acid-haze), transparent 44%, rgba(3, 18, 8, 0.55));
-  mix-blend-mode: overlay;
+  background-image: linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 30px 30px;
+  -webkit-mask: radial-gradient(120% 90% at 82% 0%, #000, transparent 70%);
+  mask: radial-gradient(120% 90% at 82% 0%, #000, transparent 70%);
+  opacity: 0.6;
   pointer-events: none;
 }
 .about-card-glow {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    240px 240px at var(--mx, 50%) var(--my, 28%),
+    260px 260px at var(--mx, 50%) var(--my, 30%),
     var(--acid-haze),
     transparent 70%
   );
@@ -369,75 +363,106 @@ h4 {
 .about-card:hover .about-card-glow {
   opacity: 1;
 }
-.about-badge {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 13px;
-  border-radius: 100px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--ink);
-  background: var(--glass);
-  border: 1px solid var(--line-soft);
-  backdrop-filter: blur(8px);
-}
-.about-badge.tl {
-  top: 14px;
-  left: 14px;
-  animation: float 5s ease-in-out infinite;
-}
-.about-badge.br {
-  bottom: 14px;
-  right: 14px;
-  animation: float 6s ease-in-out infinite reverse;
-}
-.about-badge .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--acid);
-  box-shadow: 0 0 8px var(--acid-glow);
-  animation: pulse 2.4s infinite;
-}
-.about-card-foot {
+.about-card-top {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px 8px 6px;
+  gap: 14px;
+  margin-bottom: 24px;
 }
-.about-card-id {
+.about-emblem {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 15px;
+  background: var(--acid);
+  color: #0a0d05;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+  box-shadow: 0 14px 30px -12px var(--acid-glow);
+  flex-shrink: 0;
+}
+.about-emblem-meta {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
 }
 .about-card-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 .about-card-role {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--ink-dim);
 }
-.about-clock {
-  display: inline-flex;
+.about-status {
+  position: relative;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+.about-status li {
+  display: flex;
   align-items: center;
-  gap: 7px;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
+  gap: 11px;
+  font-size: 0.95rem;
   color: var(--ink-dim);
-  white-space: nowrap;
 }
-.about-clock i {
-  width: 6px;
-  height: 6px;
+.about-status .about-status-ic {
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.about-status .dot,
+.about-status .tick {
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
+  margin: 0 5px;
+  flex-shrink: 0;
+}
+.about-status .dot {
   background: var(--acid);
   box-shadow: 0 0 8px var(--acid-glow);
+  animation: pulse 2.4s infinite;
+}
+.about-status .tick {
+  background: var(--accent-ink);
+}
+.about-links {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+.about-links a {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--line-soft);
+  color: var(--ink-dim);
+  font-size: 1.1rem;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.about-links a:hover {
+  color: var(--accent-ink);
+  border-color: var(--accent-ink);
+  transform: translateY(-3px);
+}
+:root[data-theme="light"] .about-card-inner {
+  background: var(--surface);
+  box-shadow: 0 16px 34px -22px var(--shadow-card);
 }
 
 /* Kinetic narrative */
@@ -445,7 +470,30 @@ h4 {
   font-size: clamp(2rem, 4.4vw, 3.2rem);
   margin-bottom: 28px;
 }
+.about-reveal-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 22px;
+}
+.about-rail {
+  position: relative;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--line-soft);
+  flex-shrink: 0;
+}
+.about-rail-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(var(--acid), var(--acid-deep));
+  box-shadow: 0 0 12px var(--acid-glow);
+  transform-origin: top center;
+  will-change: transform;
+}
 .about-reveal {
+  flex: 1;
+  min-width: 0;
   font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(1.35rem, 2.4vw, 2rem);
@@ -454,8 +502,36 @@ h4 {
   color: var(--ink);
   margin-bottom: 0;
 }
+.aw {
+  display: inline;
+}
 .aw-accent {
   color: var(--accent-ink);
+  text-shadow: 0 0 22px var(--acid-glow);
+}
+/* living halo on the status card */
+.about-card-aura {
+  position: absolute;
+  top: -70px;
+  right: -50px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--acid-haze), transparent 70%);
+  filter: blur(6px);
+  pointer-events: none;
+  animation: aboutPulse 6.5s ease-in-out infinite;
+}
+@keyframes aboutPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.12);
+  }
 }
 
 /* Stats */
@@ -1739,7 +1815,7 @@ h4 {
    ============================================================ */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 22px;
 }
 .stat-card {
@@ -2135,12 +2211,35 @@ h4 {
   font-size: 1rem;
 }
 
+.footer-lead {
+  max-width: 460px;
+  margin: 0 auto;
+  color: var(--ink-dim);
+  font-size: 1.02rem;
+}
+.footer-form-wrap {
+  width: 100%;
+  max-width: 600px;
+  margin: 44px auto 0;
+  text-align: left;
+}
+.footer-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 560px) {
+  .footer-form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Contact link cards */
 .footer-links {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  margin-top: 72px;
+  margin-top: 56px;
 }
 .footer-link-card {
   display: flex;

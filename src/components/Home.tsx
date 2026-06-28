@@ -14,7 +14,6 @@ import Achievements from "./Achievements";
 import Bento from "./Bento";
 import Blog from "./Blog";
 import Cricket from "./Cricket";
-import Contact from "./Contact";
 import Footer from "./Footer";
 
 export default function Home() {
@@ -44,7 +43,6 @@ export default function Home() {
         <Bento />
         <Blog />
         <Cricket />
-        <Contact />
       </main>
       <Footer />
     </>

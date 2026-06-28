@@ -1,11 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
-import { FiArrowUpRight, FiArrowUp, FiCopy, FiCheck, FiMail } from "react-icons/fi";
-import Magnetic from "./Magnetic";
+import {
+  FiArrowUpRight,
+  FiArrowUp,
+  FiMail,
+  FiCheck,
+  FiLoader,
+} from "react-icons/fi";
 import Reveal from "./Reveal";
 import Globe from "./Globe";
-import { profile, CONTACT_EMAIL } from "../data/portfolio";
+import { profile, CONTACT_EMAIL, WEB3FORMS_KEY } from "../data/portfolio";
+
+type Status = "idle" | "sending" | "done" | "error";
 
 const LINKS = [
   { icon: FiMail, label: "Email", handle: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, ext: false },
@@ -16,71 +23,115 @@ const LINKS = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const [copied, setCopied] = useState(false);
-  const [time, setTime] = useState("");
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<Status>("idle");
 
-  useEffect(() => {
-    const fmt = () =>
-      new Intl.DateTimeFormat("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-        timeZone: "Asia/Kolkata",
-      }).format(new Date());
-    setTime(fmt());
-    const id = setInterval(() => setTime(fmt()), 1000 * 20);
-    return () => clearInterval(id);
-  }, []);
+  const mailtoFallback = () => {
+    const subject = encodeURIComponent(`Portfolio enquiry from ${form.name || "someone"}`);
+    const body = encodeURIComponent(
+      `${form.message}\n\n— ${form.name}${form.email ? ` (${form.email})` : ""}`
+    );
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+  };
 
-  const copyEmail = async () => {
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!WEB3FORMS_KEY) {
+      mailtoFallback();
+      return;
+    }
+    setStatus("sending");
     try {
-      await navigator.clipboard.writeText(CONTACT_EMAIL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          subject: `Portfolio enquiry from ${form.name || "someone"}`,
+          from_name: "sahilchalke.com",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("done");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
     } catch {
-      window.location.href = `mailto:${CONTACT_EMAIL}`;
+      setStatus("error");
     }
   };
 
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+
   return (
-    <footer className="footer" id="connect">
+    <footer className="footer" id="contact">
       <Globe />
       <div className="container footer-inner">
         <div className="footer-cta">
           <Reveal>
-            <span className="footer-status">
-              <i /> Available for new projects & roles
-            </span>
-          </Reveal>
-          <Reveal delay={0.05}>
             <span className="eyebrow">Let's connect</span>
           </Reveal>
-          <Reveal delay={0.08} mask>
+          <Reveal delay={0.05}>
             <h2>
               Let's build <span className="accent">something great.</span>
             </h2>
           </Reveal>
-          <Reveal delay={0.12}>
-            <div className="footer-actions">
-              <Magnetic>
-                <a className="btn btn-primary" href={`mailto:${CONTACT_EMAIL}`}>
-                  Start a conversation <FiArrowUpRight />
-                </a>
-              </Magnetic>
-              <button className="btn btn-ghost copy-btn" onClick={copyEmail}>
-                {copied ? (
-                  <>
-                    <FiCheck /> Copied!
-                  </>
-                ) : (
-                  <>
-                    <FiCopy /> {CONTACT_EMAIL}
-                  </>
-                )}
-              </button>
-            </div>
+          <Reveal delay={0.1}>
+            <p className="footer-lead">
+              Got a product, a role or a tricky problem in mind? Drop me a line —
+              I usually reply within a day.
+            </p>
           </Reveal>
         </div>
+
+        <Reveal delay={0.08} className="footer-form-wrap">
+          <form className="form" onSubmit={onSubmit}>
+            <div className="footer-form-row">
+              <div className="field">
+                <label htmlFor="name">Name</label>
+                <input id="name" type="text" placeholder="Your name" value={form.name} onChange={set("name")} required />
+              </div>
+              <div className="field">
+                <label htmlFor="email">Email</label>
+                <input id="email" type="email" placeholder="you@email.com" value={form.email} onChange={set("email")} required />
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="message">Message</label>
+              <textarea id="message" placeholder="Tell me about your idea…" value={form.message} onChange={set("message")} required />
+            </div>
+            <button type="submit" className="btn btn-primary" disabled={status === "sending" || status === "done"}>
+              {status === "sending" ? (
+                <>
+                  <FiLoader className="spin" /> Sending…
+                </>
+              ) : status === "done" ? (
+                <>
+                  <FiCheck /> Message sent!
+                </>
+              ) : (
+                <>
+                  Send message <FiArrowUpRight />
+                </>
+              )}
+            </button>
+            {status === "done" ? (
+              <p className="form-note">Thanks! I'll get back to you within a day. 🙌</p>
+            ) : status === "error" ? (
+              <p className="form-note" style={{ color: "#ff8a8a" }}>
+                Couldn't send — please email me directly at {CONTACT_EMAIL}.
+              </p>
+            ) : (
+              <p className="form-note">Sends straight to my inbox — or use a link below.</p>
+            )}
+          </form>
+        </Reveal>
 
         <div className="footer-links">
           {LINKS.map((l) => {
@@ -110,9 +161,6 @@ export default function Footer() {
         <div className="footer-bottom">
           <span>
             © {year} {profile.name}. Built between overs with React, Framer Motion &amp; chai. 🏏
-          </span>
-          <span className="footer-clock">
-            <i /> {time} IST · {profile.location.split(",")[0]}
           </span>
           <a href="#top" className="footer-top">
             Back to top <FiArrowUp />
