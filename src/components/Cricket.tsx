@@ -7,7 +7,12 @@ export default function Cricket() {
       <div className="container">
         <Reveal>
           <div className="cricket-card">
-            <div className="cricket-ball" aria-hidden="true">
+            <div
+              className="cricket-ball"
+              title="Go on, smash a six"
+              data-cursor-text="Hit a six 🏏"
+              onClick={() => window.dispatchEvent(new CustomEvent("six-egg"))}
+            >
               <svg viewBox="0 0 120 120" width="100%" height="100%">
                 <defs>
                   <radialGradient id="cb" cx="38%" cy="30%" r="75%">

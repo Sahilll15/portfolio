@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
 import Magnetic from "./Magnetic";
 import ThemeToggle from "./ThemeToggle";
@@ -10,6 +11,7 @@ const LINKS = [
   { label: "Work", href: "#work" },
   { label: "Awards", href: "#awards" },
   { label: "Writing", href: "#writing" },
+  { label: "Uses", href: "/uses" },
 ];
 
 export default function Nav() {
@@ -47,11 +49,17 @@ export default function Nav() {
         </a>
 
         <nav className="nav-links" aria-label="Primary">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href}>
-              {l.label}
-            </a>
-          ))}
+          {LINKS.map((l) =>
+            l.href.startsWith("/") ? (
+              <Link key={l.href} to={l.href}>
+                {l.label}
+              </Link>
+            ) : (
+              <a key={l.href} href={l.href}>
+                {l.label}
+              </a>
+            )
+          )}
         </nav>
 
         <div className="nav-cta">
@@ -76,11 +84,17 @@ export default function Nav() {
 
       {open && (
         <div className="mobile-menu">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
-              {l.label}
-            </a>
-          ))}
+          {LINKS.map((l) =>
+            l.href.startsWith("/") ? (
+              <Link key={l.href} to={l.href} onClick={() => setOpen(false)}>
+                {l.label}
+              </Link>
+            ) : (
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
+                {l.label}
+              </a>
+            )
+          )}
           <a href="#contact" onClick={() => setOpen(false)}>
             Let's talk
           </a>

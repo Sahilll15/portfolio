@@ -15,14 +15,20 @@ const escXml = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const escAttr = (s) => escXml(s);
 
+// Dynamic OG image URL (served by the /api/og edge function)
+const ogImage = ({ title, category = "", readTime = "" }) =>
+  `${SITE}/api/og?title=${encodeURIComponent(title)}` +
+  (category ? `&category=${encodeURIComponent(category)}` : "") +
+  (readTime ? `&readTime=${encodeURIComponent(readTime)}` : "");
+
 // --- parse posts out of the data file (fields are in a fixed order) ---
 const blogSrc = readFileSync(join(root, "src/data/blog.ts"), "utf8");
 const re =
-  /slug:\s*"([^"]+)"[\s\S]*?title:\s*"([^"]+)"[\s\S]*?excerpt:\s*"([^"]*)"[\s\S]*?iso:\s*"([^"]+)"/g;
+  /slug:\s*"([^"]+)"[\s\S]*?title:\s*"([^"]+)"[\s\S]*?excerpt:\s*"([^"]*)"[\s\S]*?iso:\s*"([^"]+)"[\s\S]*?readTime:\s*"([^"]+)"[\s\S]*?category:\s*"([^"]+)"/g;
 const posts = [];
 let m;
 while ((m = re.exec(blogSrc))) {
-  posts.push({ slug: m[1], title: m[2], excerpt: m[3], iso: m[4] });
+  posts.push({ slug: m[1], title: m[2], excerpt: m[3], iso: m[4], readTime: m[5], category: m[6] });
 }
 console.log(`[gen-seo] found ${posts.length} posts`);
 
@@ -35,6 +41,7 @@ if (!existsSync(distDir)) {
 // --- sitemap.xml ---
 const urls = [
   { loc: `${SITE}/`, priority: "1.0", lastmod: posts[0]?.iso },
+  { loc: `${SITE}/uses`, priority: "0.5", lastmod: posts[0]?.iso },
   ...posts.map((p) => ({ loc: `${SITE}/blog/${p.slug}`, priority: "0.7", lastmod: p.iso })),
 ];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -74,13 +81,14 @@ const baseHtml = readFileSync(join(distDir, "index.html"), "utf8");
 for (const p of posts) {
   const url = `${SITE}/blog/${p.slug}`;
   const title = `${p.title} — Sahil Chalke`;
+  const img = ogImage(p);
   const ld = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: p.title,
     description: p.excerpt,
     datePublished: p.iso,
-    image: `${SITE}/og.png`,
+    image: img,
     url,
     mainEntityOfPage: url,
     author: { "@type": "Person", name: "Sahil Chalke", url: SITE },
@@ -91,6 +99,8 @@ for (const p of posts) {
     .replace(/(property="og:url" content=")[^"]*(")/, `$1${url}$2`)
     .replace(/(property="og:title" content=")[^"]*(")/, `$1${escAttr(p.title)}$2`)
     .replace(/(property="og:description" content=")[^"]*(")/, `$1${escAttr(p.excerpt)}$2`)
+    .replace(/(property="og:image" content=")[^"]*(")/, `$1${escAttr(img)}$2`)
+    .replace(/(name="twitter:image" content=")[^"]*(")/, `$1${escAttr(img)}$2`)
     .replace(/(name="twitter:title" content=")[^"]*(")/, `$1${escAttr(p.title)}$2`)
     .replace(/(name="twitter:description" content=")[^"]*(")/, `$1${escAttr(p.excerpt)}$2`)
     .replace(/(rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
@@ -100,4 +110,36 @@ for (const p of posts) {
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, "index.html"), html);
 }
-console.log(`[gen-seo] wrote sitemap.xml, rss.xml, and ${posts.length} blog pages`);
+
+// --- /uses static shell (correct meta + dynamic OG) ---
+{
+  const url = `${SITE}/uses`;
+  const title = "Uses — Sahil Chalke";
+  const desc =
+    "The tools, stack and gear Sahil Chalke reaches for every day — editor, languages, cloud, testing and hardware.";
+  const img = ogImage({ title: "What I use, daily" });
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description: desc,
+    url,
+  };
+  const html = baseHtml
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escXml(title)}</title>`)
+    .replace(/(name="description" content=")[^"]*(")/, `$1${escAttr(desc)}$2`)
+    .replace(/(property="og:url" content=")[^"]*(")/, `$1${url}$2`)
+    .replace(/(property="og:title" content=")[^"]*(")/, `$1${escAttr(title)}$2`)
+    .replace(/(property="og:description" content=")[^"]*(")/, `$1${escAttr(desc)}$2`)
+    .replace(/(property="og:image" content=")[^"]*(")/, `$1${escAttr(img)}$2`)
+    .replace(/(name="twitter:image" content=")[^"]*(")/, `$1${escAttr(img)}$2`)
+    .replace(/(name="twitter:title" content=")[^"]*(")/, `$1${escAttr(title)}$2`)
+    .replace(/(name="twitter:description" content=")[^"]*(")/, `$1${escAttr(desc)}$2`)
+    .replace(/(rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
+    .replace("</head>", `<script type="application/ld+json">${JSON.stringify(ld)}</script></head>`);
+  const dir = join(distDir, "uses");
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, "index.html"), html);
+}
+
+console.log(`[gen-seo] wrote sitemap.xml, rss.xml, /uses, and ${posts.length} blog pages`);

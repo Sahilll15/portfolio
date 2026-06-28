@@ -7,8 +7,10 @@ import Services from "./Services";
 import TechStack from "./TechStack";
 import Experience from "./Experience";
 import Projects from "./Projects";
+import Testimonials from "./Testimonials";
 import MarqueeBand from "./MarqueeBand";
 import Achievements from "./Achievements";
+import Bento from "./Bento";
 import Blog from "./Blog";
 import Cricket from "./Cricket";
 import Contact from "./Contact";
@@ -34,8 +36,10 @@ export default function Home() {
         <TechStack />
         <Experience />
         <Projects />
+        <Testimonials />
         <MarqueeBand />
         <Achievements />
+        <Bento />
         <Blog />
         <Cricket />
         <Contact />

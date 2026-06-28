@@ -59,17 +59,17 @@
    LIGHT THEME — warm lime-tinted "paper", neon brand intact
    ============================================================ */
 :root[data-theme="light"] {
-  --bg: #eef1e6;
-  --bg-2: #e6e9db;
+  --bg: #e8ece0;
+  --bg-2: #dfe3d4;
   --surface: #ffffff;
-  --surface-2: #f6f8ef;
-  --surface-3: #eceee2;
-  --line: rgba(74, 102, 0, 0.16);
-  --line-soft: rgba(20, 30, 8, 0.1);
+  --surface-2: #f4f7ec;
+  --surface-3: #e9ecdf;
+  --line: rgba(58, 84, 0, 0.2);
+  --line-soft: rgba(26, 36, 10, 0.14);
 
-  --ink: #12160c;
-  --ink-dim: #4c5346;
-  --ink-faint: #7e8576;
+  --ink: #11150b;
+  --ink-dim: #444b3c;
+  --ink-faint: #767d6c;
 
   /* Keep neon lime for fills/buttons; soften halo + deepen haze for paper */
   --acid-glow: rgba(150, 190, 0, 0.45);
@@ -86,10 +86,21 @@
   --input-focus-bg: rgba(150, 190, 0, 0.1);
   --edge-accent: rgba(95, 130, 0, 0.45);
   --shadow-strong: rgba(40, 50, 15, 0.22);
-  --shadow-card: rgba(40, 50, 15, 0.12);
+  --shadow-card: rgba(35, 45, 15, 0.2);
 }
 
-/* Soft depth for white cards on the paper canvas (light only) */
+/* Clean white cards (drop the dark-ward gradient) so they pop on the paper canvas */
+:root[data-theme="light"] .service-card,
+:root[data-theme="light"] .project-card,
+:root[data-theme="light"] .exp-card,
+:root[data-theme="light"] .xp-panel,
+:root[data-theme="light"] .blog-card,
+:root[data-theme="light"] .cricket-card,
+:root[data-theme="light"] .contact-wrap,
+:root[data-theme="light"] .project-preview {
+  background: var(--surface);
+}
+/* Real depth for every card on light */
 :root[data-theme="light"] .service-card,
 :root[data-theme="light"] .project-card,
 :root[data-theme="light"] .stat-card,
@@ -100,7 +111,23 @@
 :root[data-theme="light"] .post-more-card,
 :root[data-theme="light"] .contact-wrap,
 :root[data-theme="light"] .xp-panel {
-  box-shadow: 0 20px 44px -30px var(--shadow-card);
+  box-shadow: 0 16px 34px -22px var(--shadow-card);
+}
+
+/* Light blog/post cover art — soft per-category pastel, not the dark gradient */
+:root[data-theme="light"] .blog-cover {
+  background: linear-gradient(135deg, #f4f7ec, hsl(var(--hue, 150) 52% 88%));
+}
+:root[data-theme="light"] .post-cover {
+  background: linear-gradient(135deg, #f4f7ec, hsl(var(--hue, 150) 52% 86%));
+}
+:root[data-theme="light"] .blog-cover::before,
+:root[data-theme="light"] .post-cover::before {
+  background: radial-gradient(120% 130% at 82% -20%, rgba(120, 165, 0, 0.22), transparent 58%);
+}
+:root[data-theme="light"] .blog-cover-icon,
+:root[data-theme="light"] .post-cover-icon {
+  color: rgba(95, 130, 0, 0.22);
 }
 :root[data-theme="light"] ::-webkit-scrollbar-thumb {
   background: rgba(40, 50, 15, 0.22);
@@ -2400,6 +2427,282 @@ h4 {
   }
 }
 
+/* ============================================================
+   BENTO · TESTIMONIALS · 404 · CRICKET EGG
+   ============================================================ */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.bento-cell {
+  height: 100%;
+}
+.bento-heat {
+  grid-column: span 2;
+}
+.bento-tile {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line-soft);
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease);
+}
+a.bento-tile {
+  text-decoration: none;
+  color: inherit;
+}
+.bento-tile:hover {
+  transform: translateY(-5px);
+  border-color: rgba(226, 255, 45, 0.28);
+  background: rgba(255, 255, 255, 0.05);
+}
+.bento-tile-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+}
+.bento-tile-head > svg {
+  color: var(--acid);
+}
+.bento-link {
+  margin-left: auto;
+  color: var(--ink-faint);
+  transition: color 0.25s var(--ease);
+}
+.bento-link:hover {
+  color: var(--acid);
+}
+.heat {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2px;
+  height: 96px;
+  margin: 6px 0;
+  overflow: hidden;
+}
+.heat-cell {
+  border-radius: 2px;
+  min-width: 0;
+}
+.bento-loading {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+.bento-stat {
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  margin-top: auto;
+}
+.bento-stat strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+}
+.bento-num {
+  justify-content: center;
+}
+.bento-big {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--acid);
+}
+.bento-big.mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--ink);
+}
+.bento-cap {
+  font-size: 0.84rem;
+  color: var(--ink-dim);
+}
+.bento-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--acid);
+}
+.bento-learn {
+  background: linear-gradient(150deg, var(--acid-haze), transparent);
+}
+.bento-learn-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  letter-spacing: -0.03em;
+}
+.bento-post-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+.bento-link-row {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--acid);
+}
+@media (max-width: 860px) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-heat {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 480px) {
+  .bento {
+    grid-template-columns: 1fr;
+  }
+  .bento-heat {
+    grid-column: span 1;
+  }
+}
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.quote-card {
+  position: relative;
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(165deg, var(--surface), var(--bg-2));
+  border: 1px solid var(--line-soft);
+  height: 100%;
+}
+.quote-mark {
+  color: var(--acid);
+  font-size: 1.4rem;
+  opacity: 0.5;
+  margin-bottom: 14px;
+}
+.quote-card blockquote {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.quote-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.quote-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+.quote-role {
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+}
+
+.notfound {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 80px 24px;
+}
+.nf-inner {
+  max-width: 560px;
+  text-align: center;
+}
+.nf-code {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(5rem, 22vw, 12rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--acid);
+  text-shadow: 0 0 60px var(--acid-glow);
+}
+.nf-cmd {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  margin-top: 18px;
+}
+.nf-msg {
+  color: var(--ink-dim);
+  margin-top: 14px;
+  line-height: 1.6;
+}
+.nf-err {
+  font-family: var(--font-mono);
+  color: #ff6b6b;
+  font-size: 0.88rem;
+}
+.nf-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.cricket-ball {
+  cursor: pointer;
+}
+.six-egg {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  pointer-events: none;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.six-banner {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 14vw, 9rem);
+  letter-spacing: -0.04em;
+  color: var(--acid);
+  text-shadow: 0 0 50px var(--acid-glow);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18em;
+}
+.six-confetti {
+  position: absolute;
+  top: -10%;
+  font-size: clamp(1.4rem, 3vw, 2.3rem);
+  will-change: transform;
+  animation-name: six-fall;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+}
+@keyframes six-fall {
+  0% {
+    transform: translateY(-12vh) rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(115vh) rotate(540deg);
+    opacity: 0.85;
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -2895,6 +3198,87 @@ h4 {
 }
 @media (max-width: 560px) {
   .post-more-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   /USES PAGE
+   ============================================================ */
+.uses {
+  position: relative;
+  padding: clamp(112px, 14vw, 156px) 0 clamp(64px, 9vw, 110px);
+}
+.uses-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+.uses-card {
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(165deg, var(--surface), var(--bg-2));
+  border: 1px solid var(--line-soft);
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.uses-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--edge-accent);
+}
+.uses-card-head {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 18px;
+}
+.uses-card-head h3 {
+  font-size: 1.3rem;
+}
+.uses-ic {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: var(--acid-haze);
+  border: 1px solid rgba(226, 255, 45, 0.18);
+  color: var(--accent-ink);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.uses-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.uses-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 11px 0;
+  border-top: 1px solid var(--line-soft);
+}
+.uses-list li:first-child {
+  border-top: 0;
+}
+.uses-name {
+  font-weight: 500;
+}
+.uses-note {
+  margin-left: auto;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+:root[data-theme="light"] .uses-card {
+  background: var(--surface);
+  box-shadow: 0 16px 34px -22px var(--shadow-card);
+}
+@media (max-width: 760px) {
+  .uses-grid {
     grid-template-columns: 1fr;
   }
 }

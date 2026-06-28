@@ -9,6 +9,9 @@ import CommandPalette from "./components/CommandPalette";
 import Terminal from "./components/Terminal";
 import Home from "./components/Home";
 import BlogPost from "./components/BlogPost";
+import Uses from "./components/Uses";
+import NotFound from "./components/NotFound";
+import SixEasterEgg from "./components/SixEasterEgg";
 import { initAccent, initTheme } from "./lib/theme";
 
 /** A neon curtain that wipes across on route changes. */
@@ -54,9 +57,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/uses" element={<Uses />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Chatbot />
+      <SixEasterEgg />
       <Analytics />
     </>
   );

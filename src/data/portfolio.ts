@@ -391,3 +391,19 @@ export const linkedinPosts: LinkedInPost[] = [
     comments: 16,
   },
 ];
+
+export interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+}
+
+/* From Sahil's official Letter of Recommendation (Atomic House, 11 Dec 2024). */
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "Sahil consistently displayed exceptional technical skills, creativity, and a proactive approach to problem-solving. He made significant contributions to key features of our web app and browser extension, and his ability to communicate complex technical concepts clearly and concisely made him a highly respected member of the team. I'm confident he'll be a tremendous asset to any organization he joins.",
+    name: "Aniket Borhade",
+    role: "Founder & CEO, Atomic House",
+  },
+];
