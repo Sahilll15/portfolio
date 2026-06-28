@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import ErrorBoundary from "./ErrorBoundary";
 
 // Lazy-loaded so three.js only downloads when the footer is near the viewport.
 const GlobeGL = lazy(() => import("react-globe.gl"));
@@ -97,6 +98,7 @@ export default function Globe() {
   return (
     <div className="globe" ref={wrapRef}>
       {show && (
+        <ErrorBoundary fallback={null}>
         <Suspense fallback={null}>
           <GlobeGL
             ref={globeRef}
@@ -125,6 +127,7 @@ export default function Globe() {
             onGlobeReady={handleReady}
           />
         </Suspense>
+        </ErrorBoundary>
       )}
     </div>
   );

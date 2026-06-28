@@ -311,15 +311,27 @@ h4 {
 }
 
 /* ---------- About (kinetic showpiece) ---------- */
+.about {
+  padding-block: clamp(56px, 8vw, 100px);
+}
 .about-grid {
   display: grid;
   grid-template-columns: 0.82fr 1.18fr;
-  gap: clamp(32px, 5vw, 64px);
+  grid-template-areas:
+    "card copy"
+    "sign copy"
+    ".    copy";
+  grid-template-rows: auto auto 1fr;
+  column-gap: clamp(36px, 5vw, 72px);
+  row-gap: 30px;
   align-items: start;
 }
 .about-card-wrap {
-  position: sticky;
-  top: 100px;
+  grid-area: card;
+}
+.about-copy {
+  grid-area: copy;
+  min-width: 0;
 }
 
 /* Interactive portrait card */
@@ -467,8 +479,8 @@ h4 {
 
 /* Kinetic narrative */
 .about-head {
-  font-size: clamp(2rem, 4.4vw, 3.2rem);
-  margin-bottom: 28px;
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  margin-bottom: 22px;
 }
 .about-reveal-wrap {
   display: flex;
@@ -496,8 +508,8 @@ h4 {
   min-width: 0;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.35rem, 2.4vw, 2rem);
-  line-height: 1.42;
+  font-size: clamp(1.15rem, 1.9vw, 1.6rem);
+  line-height: 1.4;
   letter-spacing: -0.01em;
   color: var(--ink);
   margin-bottom: 0;
@@ -534,30 +546,68 @@ h4 {
   }
 }
 
-/* Self-inking signature */
+/* Self-inking signature (bottom-left of the About grid) */
 .about-sign-wrap {
+  grid-area: sign;
+  align-self: start;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-  margin-top: 38px;
+  align-items: flex-start;
+  gap: 9px;
+  padding-top: 4px;
+}
+.about-sign-stage {
+  position: relative;
+  width: clamp(168px, 15vw, 205px);
+  aspect-ratio: 581 / 286;
 }
 .about-sign {
-  display: block;
-  width: clamp(170px, 22vw, 230px);
-  aspect-ratio: 581 / 286;
+  position: absolute;
+  inset: 0;
   background: var(--accent-ink);
   -webkit-mask: url("/signature.png") center / contain no-repeat;
   mask: url("/signature.png") center / contain no-repeat;
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.7s var(--ease);
+  transition: clip-path 1.8s var(--ease);
 }
 .about-sign.drawn {
   clip-path: inset(0 0 0 0);
 }
+/* glowing ink-front that sweeps across as it writes */
+.about-sign-pen {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 0;
+  width: 22px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--acid-glow), transparent);
+  filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+}
+.about-sign-pen.drawn {
+  animation: signInk 1.8s var(--ease) forwards;
+}
+@keyframes signInk {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  86% {
+    opacity: 0.95;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
 .about-sign-cap {
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -567,6 +617,9 @@ h4 {
     clip-path: none;
     transition: none;
   }
+  .about-sign-pen {
+    display: none;
+  }
 }
 
 /* Stats */
@@ -574,8 +627,8 @@ h4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
-  margin-top: 40px;
-  padding-top: 30px;
+  margin-top: 30px;
+  padding-top: 26px;
   border-top: 1px solid var(--line-soft);
 }
 .about-stat {
@@ -601,12 +654,16 @@ h4 {
 @media (max-width: 860px) {
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 36px;
+    grid-template-areas: "card" "copy" "sign";
+    grid-template-rows: auto auto auto;
+    gap: 30px;
   }
   .about-card-wrap {
-    position: static;
     width: 100%;
     max-width: 380px;
+  }
+  .about-sign-wrap {
+    align-self: start;
   }
   .about-stats {
     grid-template-columns: repeat(2, 1fr);
@@ -690,6 +747,8 @@ h4 {
   font-weight: 600;
   font-size: 1.05rem;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .brand-mark {
   display: grid;
@@ -711,17 +770,18 @@ h4 {
 }
 .nav-links a {
   position: relative;
-  padding: 9px 16px;
+  padding: 9px 14px;
   font-size: 0.95rem;
   color: var(--ink-dim);
   border-radius: 100px;
+  white-space: nowrap;
   transition: color 0.25s var(--ease);
 }
 .nav-links a::after {
   content: "";
   position: absolute;
-  left: 16px;
-  right: 16px;
+  left: 14px;
+  right: 14px;
   bottom: 4px;
   height: 1px;
   background: var(--acid);
@@ -2290,6 +2350,7 @@ h4 {
   align-items: center;
   gap: 14px;
   padding: 20px;
+  min-width: 0;
   border-radius: var(--radius);
   background: var(--surface);
   border: 1px solid var(--line-soft);
@@ -2550,7 +2611,8 @@ h4 {
   }
 }
 
-@media (max-width: 760px) {
+/* Collapse the full nav to a hamburger before the desktop links get cramped */
+@media (max-width: 1024px) {
   .nav-links,
   .nav-cta .btn {
     display: none;
@@ -2558,6 +2620,9 @@ h4 {
   .nav-toggle {
     display: flex;
   }
+}
+
+@media (max-width: 760px) {
   .projects-grid {
     grid-template-columns: 1fr;
   }
@@ -2873,6 +2938,13 @@ h4 {
 }
 .gl-flag {
   color: color-mix(in srgb, var(--accent-ink) 82%, var(--ink));
+}
+.gl-checkout {
+  margin-top: 26px;
+}
+.gl-comment {
+  color: var(--ink-faint);
+  margin-left: 10px;
 }
 
 .gl-row {
