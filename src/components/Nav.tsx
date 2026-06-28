@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
 import Magnetic from "./Magnetic";
 import ThemeToggle from "./ThemeToggle";
+import AccentPicker from "./AccentPicker";
 import { profile } from "../data/portfolio";
 
 const LINKS = [
@@ -63,6 +64,7 @@ export default function Nav() {
         </nav>
 
         <div className="nav-cta">
+          <AccentPicker />
           <ThemeToggle />
           <Magnetic>
             <a className="btn btn-primary" href="#contact">

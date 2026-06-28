@@ -42,6 +42,7 @@
 
   /* Semantic theme tokens (dark defaults) — flip in [data-theme="light"] */
   --accent-ink: var(--acid);            /* legible accent for text / icons   */
+  --acid-ink: #4f7a00;                  /* dark accent variant (light theme)  */
   --glass: var(--glass);        /* nav + launcher glass              */
   --glass-strong: rgba(8, 10, 9, 0.95); /* mobile menu / location pill       */
   --panel: var(--panel);      /* command palette / terminal / chat */
@@ -74,7 +75,7 @@
   /* Keep neon lime for fills/buttons; soften halo + deepen haze for paper */
   --acid-glow: rgba(150, 190, 0, 0.45);
   --acid-haze: rgba(120, 165, 0, 0.16);
-  --accent-ink: #4f7a00; /* deep lime — reads as text on light */
+  --accent-ink: var(--acid-ink); /* follows the chosen accent, legible on light */
 
   --glass: rgba(255, 255, 255, 0.72);
   --glass-strong: rgba(250, 251, 245, 0.95);
@@ -492,6 +493,38 @@ h4 {
 }
 :root[data-theme="light"] .tt-knob {
   transform: translate(30px, -50%);
+}
+
+/* ---------- Accent color picker ---------- */
+.accent-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 4px;
+  margin-right: 2px;
+  border-right: 1px solid var(--line-soft);
+}
+.accent-dot {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--swatch);
+  cursor: pointer;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.accent-dot:hover {
+  transform: scale(1.2);
+}
+.accent-dot.active {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--swatch);
+}
+@media (max-width: 560px) {
+  .accent-picker {
+    display: none;
+  }
 }
 .nav-toggle {
   display: none;

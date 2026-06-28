@@ -5,14 +5,17 @@ interface Accent {
   deep: string;
   glow: string;
   haze: string;
+  ink: string; // darker, legible variant for accent text on the light theme
 }
 
 export const ACCENTS: Record<AccentName, Accent> = {
-  lime: { acid: "#e2ff2d", deep: "#c5e600", glow: "rgba(226,255,45,0.5)", haze: "rgba(226,255,45,0.12)" },
-  cyan: { acid: "#34f5e4", deep: "#12c9b8", glow: "rgba(52,245,228,0.5)", haze: "rgba(52,245,228,0.12)" },
-  violet: { acid: "#b794ff", deep: "#8a5cf6", glow: "rgba(183,148,255,0.5)", haze: "rgba(183,148,255,0.12)" },
-  amber: { acid: "#ffb13d", deep: "#f59412", glow: "rgba(255,177,61,0.5)", haze: "rgba(255,177,61,0.12)" },
+  lime: { acid: "#e2ff2d", deep: "#c5e600", glow: "rgba(226,255,45,0.5)", haze: "rgba(226,255,45,0.12)", ink: "#4f7a00" },
+  cyan: { acid: "#34f5e4", deep: "#12c9b8", glow: "rgba(52,245,228,0.5)", haze: "rgba(52,245,228,0.12)", ink: "#0c7d72" },
+  violet: { acid: "#b794ff", deep: "#8a5cf6", glow: "rgba(183,148,255,0.5)", haze: "rgba(183,148,255,0.12)", ink: "#6a3fd6" },
+  amber: { acid: "#ffb13d", deep: "#f59412", glow: "rgba(255,177,61,0.5)", haze: "rgba(255,177,61,0.12)", ink: "#a85f00" },
 };
+
+const ACCENT_KEY = "accent";
 
 export function setAccent(name: AccentName) {
   const a = ACCENTS[name] ?? ACCENTS.lime;
@@ -21,20 +24,28 @@ export function setAccent(name: AccentName) {
   r.setProperty("--acid-deep", a.deep);
   r.setProperty("--acid-glow", a.glow);
   r.setProperty("--acid-haze", a.haze);
+  r.setProperty("--acid-ink", a.ink);
   try {
-    localStorage.setItem("accent", name);
+    localStorage.setItem(ACCENT_KEY, name);
   } catch {
     /* ignore */
   }
 }
 
-export function initAccent() {
+/** The saved accent (defaults to lime). */
+export function getAccent(): AccentName {
   try {
-    const n = localStorage.getItem("accent") as AccentName | null;
-    if (n && ACCENTS[n]) setAccent(n);
+    const n = localStorage.getItem(ACCENT_KEY) as AccentName | null;
+    if (n && ACCENTS[n]) return n;
   } catch {
     /* ignore */
   }
+  return "lime";
+}
+
+export function initAccent() {
+  const n = getAccent();
+  if (n !== "lime") setAccent(n);
 }
 
 /* ---------- Light / Dark mode ---------- */
