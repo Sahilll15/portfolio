@@ -10,7 +10,7 @@ import {
 } from "motion/react";
 
 const WORDS = [
-  "Full-Stack Developer",
+  "Associate Software Engineer",
   "MERN",
   "iOS",
   "Open Source",

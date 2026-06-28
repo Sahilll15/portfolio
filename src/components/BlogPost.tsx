@@ -38,7 +38,7 @@ export default function BlogPost() {
     window.scrollTo(0, 0);
     if (post) document.title = `${post.title} — Sahil Chalke`;
     return () => {
-      document.title = "Sahil Chalke — Full Stack Developer";
+      document.title = "Sahil Chalke — Associate Software Engineer @ Contentstack";
     };
   }, [slug, post]);
 

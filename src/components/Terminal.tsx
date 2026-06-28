@@ -34,7 +34,7 @@ function runCmd(raw: string): string {
     case "about":
       return profile.about;
     case "whoami":
-      return `${profile.name} — ${profile.role} @ Contentstack · ${profile.location}`;
+      return `${profile.name} — ${profile.role} · ${profile.location}`;
     case "experience":
       return experiences.map((e) => `• ${e.company} — ${e.role.split("·")[0].trim()} (${e.period})`).join("\n");
     case "projects":

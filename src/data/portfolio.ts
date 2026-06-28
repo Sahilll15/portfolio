@@ -41,7 +41,7 @@ export const profile = {
   name: "Sahil Chalke",
   firstName: "Sahil",
   initials: "SC",
-  role: "Full Stack Developer",
+  role: "Associate Software Engineer @ Contentstack",
   pronouns: "He/Him",
   age: "23",
   location: "Virar, Maharashtra, India",
@@ -220,11 +220,12 @@ export const projects: Project[] = [
   },
   {
     index: "03",
-    name: "Synapse AI",
+    name: "Video Chat",
     description:
-      "An AI knowledge hub running parallel CSR (Vite) and SSR (Next.js) apps, powered by Contentstack with Live Preview — content modelling meets generative AI.",
-    tags: ["Next.js", "Contentstack", "AI"],
-    link: "https://github.com/SahilCs15/ai-blog-contentstack",
+      "Browser-based real-time video calling with shareable room codes — peer-to-peer WebRTC streams, no installs, just send a link and you're connected.",
+    tags: ["WebRTC", "Socket.io", "Real-time"],
+    link: "https://github.com/Sahilll15/Video-chat",
+    live: "https://videochat-ebon.vercel.app",
   },
   {
     index: "04",

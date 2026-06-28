@@ -58,7 +58,7 @@ export default function Hero() {
             animate="show"
           >
             <span className="dot" />
-            {profile.status}
+            {profile.available}
           </motion.span>
 
           <h1>
@@ -70,7 +70,7 @@ export default function Hero() {
                 <SplitText text="Sahil Chalke." delay={0.22} />
               </em>
             </span>
-            <motion.span className="line" custom={3} variants={rise} initial="hidden" animate="show">
+            <motion.span className="line hero-role" custom={3} variants={rise} initial="hidden" animate="show">
               {profile.role}
             </motion.span>
           </h1>

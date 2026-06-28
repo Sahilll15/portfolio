@@ -534,6 +534,41 @@ h4 {
   }
 }
 
+/* Self-inking signature */
+.about-sign-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 38px;
+}
+.about-sign {
+  display: block;
+  width: clamp(170px, 22vw, 230px);
+  aspect-ratio: 581 / 286;
+  background: var(--accent-ink);
+  -webkit-mask: url("/signature.png") center / contain no-repeat;
+  mask: url("/signature.png") center / contain no-repeat;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.7s var(--ease);
+}
+.about-sign.drawn {
+  clip-path: inset(0 0 0 0);
+}
+.about-sign-cap {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-sign {
+    clip-path: none;
+    transition: none;
+  }
+}
+
 /* Stats */
 .about-stats {
   display: grid;
@@ -954,6 +989,15 @@ h4 {
   font-style: normal;
   color: var(--accent-ink);
   position: relative;
+}
+/* Current title sits below the name as a clear subtitle, not a competing headline */
+.hero h1 .line.hero-role {
+  font-size: clamp(1.35rem, 3.4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-top: 16px;
+  overflow: visible;
 }
 .hero-sub {
   margin-top: 28px;

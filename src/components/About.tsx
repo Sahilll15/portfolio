@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useMotionTemplate, type MotionValue } 
 import Reveal from "./Reveal";
 import TiltCard from "./TiltCard";
 import Counter from "./Counter";
+import Signature from "./Signature";
 import { profile } from "../data/portfolio";
 
 const NARRATIVE =
@@ -79,9 +80,6 @@ export default function About() {
                 </div>
                 <ul className="about-status">
                   <li>
-                    <i className="dot" /> Open to full-stack roles
-                  </li>
-                  <li>
                     <span className="about-status-ic">📍</span> {profile.location}
                   </li>
                   <li>
@@ -138,6 +136,8 @@ export default function About() {
               </div>
             ))}
           </div>
+
+          <Signature />
         </div>
       </div>
     </section>

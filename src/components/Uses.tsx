@@ -13,7 +13,7 @@ export default function Uses() {
     window.scrollTo(0, 0);
     document.title = "Uses — Sahil Chalke";
     return () => {
-      document.title = "Sahil Chalke — Full Stack Developer";
+      document.title = "Sahil Chalke — Associate Software Engineer @ Contentstack";
     };
   }, []);
 

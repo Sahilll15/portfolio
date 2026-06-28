@@ -6,7 +6,7 @@ export default function NotFound() {
   useEffect(() => {
     document.title = "404 — Sahil Chalke";
     return () => {
-      document.title = "Sahil Chalke — Full Stack Developer";
+      document.title = "Sahil Chalke — Associate Software Engineer @ Contentstack";
     };
   }, []);
 
