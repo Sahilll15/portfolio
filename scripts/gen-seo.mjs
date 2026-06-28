@@ -19,7 +19,9 @@ const escAttr = (s) => escXml(s);
 // scripts/gen-og-gallery.mjs + element screenshots — no Edge function needed).
 // Falls back to the site card for pages without a slug.
 const ogImage = (post) =>
-  post && post.slug ? `${SITE}/og/${post.slug}.png` : `${SITE}/og.png`;
+  post && post.slug && existsSync(join(distDir, "og", `${post.slug}.png`))
+    ? `${SITE}/og/${post.slug}.png`
+    : `${SITE}/og.png`;
 
 // --- parse posts out of the data file (fields are in a fixed order) ---
 const blogSrc = readFileSync(join(root, "src/data/blog.ts"), "utf8");
