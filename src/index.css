@@ -310,6 +310,199 @@ h4 {
   font-size: 1.05rem;
 }
 
+/* ---------- About (kinetic showpiece) ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
+}
+.about-card-wrap {
+  position: sticky;
+  top: 100px;
+}
+
+/* Interactive portrait card */
+.about-card {
+  will-change: transform;
+}
+.about-card-inner {
+  position: relative;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(165deg, var(--surface-2), var(--bg-2));
+  border: 1px solid var(--line-soft);
+  box-shadow: 0 40px 80px -42px var(--shadow-strong);
+}
+.about-portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: calc(var(--radius-lg) - 6px);
+  overflow: hidden;
+}
+.about-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  filter: grayscale(0.26) contrast(1.06) brightness(1.02);
+}
+.about-photo-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(155deg, var(--acid-haze), transparent 44%, rgba(3, 18, 8, 0.55));
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.about-card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    240px 240px at var(--mx, 50%) var(--my, 28%),
+    var(--acid-haze),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+.about-card:hover .about-card-glow {
+  opacity: 1;
+}
+.about-badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink);
+  background: var(--glass);
+  border: 1px solid var(--line-soft);
+  backdrop-filter: blur(8px);
+}
+.about-badge.tl {
+  top: 14px;
+  left: 14px;
+  animation: float 5s ease-in-out infinite;
+}
+.about-badge.br {
+  bottom: 14px;
+  right: 14px;
+  animation: float 6s ease-in-out infinite reverse;
+}
+.about-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acid);
+  box-shadow: 0 0 8px var(--acid-glow);
+  animation: pulse 2.4s infinite;
+}
+.about-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 8px 6px;
+}
+.about-card-id {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.about-card-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.about-card-role {
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+}
+.about-clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+.about-clock i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--acid);
+  box-shadow: 0 0 8px var(--acid-glow);
+}
+
+/* Kinetic narrative */
+.about-head {
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  margin-bottom: 28px;
+}
+.about-reveal {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.42;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 0;
+}
+.aw-accent {
+  color: var(--accent-ink);
+}
+
+/* Stats */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid var(--line-soft);
+}
+.about-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.about-stat-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent-ink);
+}
+.about-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+@media (max-width: 860px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .about-card-wrap {
+    position: static;
+    width: 100%;
+    max-width: 380px;
+  }
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   --pad-y: 14px;
@@ -2483,6 +2676,273 @@ h4 {
   font-size: inherit;
   outline: none;
   caret-color: var(--accent-ink);
+}
+
+/* ---- Career git-log terminal ---- */
+.gitlog {
+  --gl-rail: color-mix(in srgb, var(--accent-ink) 28%, transparent);
+  margin-top: 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: var(--panel);
+  overflow: hidden;
+  box-shadow: 0 40px 90px -34px var(--shadow-strong),
+    inset 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.gitlog-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--fill-faint);
+}
+.gitlog-path {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.gitlog-git {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  opacity: 0.5;
+}
+.gitlog-body {
+  padding: 20px clamp(14px, 3vw, 26px) 18px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+.gl-cmd {
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.gl-prompt {
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+.gl-flag {
+  color: color-mix(in srgb, var(--accent-ink) 82%, var(--ink));
+}
+
+.gl-row {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+}
+.gl-rail {
+  position: relative;
+}
+.gl-rail::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gl-rail);
+}
+.gl-row:first-child .gl-rail::before {
+  top: 16px;
+}
+.gl-row:last-child .gl-rail::before {
+  bottom: auto;
+  height: 16px;
+}
+.gl-node {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-ink);
+  background: var(--panel);
+  box-sizing: border-box;
+  z-index: 1;
+  transition: transform 0.2s ease;
+}
+.gl-row.head .gl-node {
+  background: var(--accent-ink);
+  animation: gl-pulse 2.6s ease-in-out infinite;
+}
+@keyframes gl-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px var(--acid-glow), 0 0 12px var(--acid-glow); }
+  50% { box-shadow: 0 0 0 6px transparent, 0 0 4px var(--acid-glow); }
+}
+.gl-row:hover .gl-node {
+  transform: scale(1.18);
+}
+
+.gl-content {
+  min-width: 0;
+  padding-bottom: 2px;
+}
+.gl-commit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 9px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 6px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink-dim);
+  transition: background 0.18s ease;
+}
+.gl-commit:hover {
+  background: var(--fill-faint);
+}
+.gl-hash {
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+.gl-ref {
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+}
+.gl-head {
+  color: #5ad6c4;
+  font-weight: 700;
+}
+.gl-branch-ref {
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+.gl-year {
+  color: var(--accent-ink);
+}
+.gl-star {
+  color: var(--accent-ink);
+  font-size: 0.78rem;
+}
+.gl-co {
+  color: var(--ink);
+  font-weight: 600;
+}
+.gl-dash {
+  color: var(--ink-faint);
+}
+.gl-role {
+  color: var(--ink-dim);
+}
+.gl-tag {
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  border: 1px solid color-mix(in srgb, var(--accent-ink) 45%, transparent);
+  border-radius: 999px;
+  padding: 1px 8px;
+  background: var(--acid-glow);
+}
+.gl-caret {
+  margin-left: auto;
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, color 0.2s ease;
+}
+.gl-caret.down {
+  transform: rotate(90deg);
+  color: var(--accent-ink);
+}
+.gl-commit:hover .gl-caret {
+  color: var(--accent-ink);
+}
+
+.gl-body {
+  overflow: hidden;
+}
+.gl-body-inner {
+  padding: 8px 10px 18px;
+  font-size: 0.82rem;
+}
+.gl-meta {
+  color: var(--ink-faint);
+  margin-bottom: 2px;
+}
+.gl-meta-k {
+  color: color-mix(in srgb, var(--accent-ink) 70%, var(--ink));
+}
+.gl-diff {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+.gl-add {
+  position: relative;
+  padding: 3px 0 3px 22px;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+.gl-add::before {
+  content: "+";
+  position: absolute;
+  left: 4px;
+  top: 3px;
+  color: #3fb950;
+  font-weight: 700;
+}
+.gl-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 16px;
+}
+.gl-chip {
+  font-size: 0.72rem;
+  color: var(--ink-dim);
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  padding: 3px 10px;
+  background: var(--fill-faint);
+}
+.gl-status {
+  margin-top: 14px;
+  padding: 12px 10px 2px;
+  border-top: 1px dashed var(--line-soft);
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+.gl-check {
+  color: #3fb950;
+  font-weight: 700;
+}
+.gl-branch-name {
+  color: var(--accent-ink);
+}
+.gl-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 6px;
+  vertical-align: -2px;
+  background: var(--accent-ink);
+  animation: gl-blink 1.1s steps(1) infinite;
+}
+@keyframes gl-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gl-cursor { animation: none; opacity: 1; }
+  .gl-row.head .gl-node { animation: none; box-shadow: 0 0 0 3px var(--acid-glow); }
+}
+@media (max-width: 560px) {
+  .gitlog-body { font-size: 0.78rem; }
+  .gitlog-path { font-size: 0.66rem; }
+  .gl-row { grid-template-columns: 20px 1fr; }
 }
 
 .route-wipe {

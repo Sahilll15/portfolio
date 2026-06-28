@@ -7,6 +7,7 @@ import AccentPicker from "./AccentPicker";
 import { profile } from "../data/portfolio";
 
 const LINKS = [
+  { label: "About", href: "#about" },
   { label: "What I Do", href: "#services" },
   { label: "Experience", href: "#experience" },
   { label: "Work", href: "#work" },

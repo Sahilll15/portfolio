@@ -3,6 +3,7 @@ import Intro from "./Intro";
 import SmoothScroll from "./SmoothScroll";
 import Nav from "./Nav";
 import Hero from "./Hero";
+import About from "./About";
 import Services from "./Services";
 import TechStack from "./TechStack";
 import Experience from "./Experience";
@@ -32,6 +33,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <About />
         <Services />
         <TechStack />
         <Experience />
