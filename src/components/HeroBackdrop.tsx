@@ -1,6 +1,20 @@
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "../lib/env";
 
+/** Read the live accent colour (CSS var --acid) as RGB so the canvas follows it. */
+function readAccentRGB() {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue("--acid").trim();
+  if (raw.startsWith("#")) {
+    let hex = raw.slice(1);
+    if (hex.length === 3) hex = hex.split("").map((c) => c + c).join("");
+    const n = parseInt(hex, 16);
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+  }
+  const m = raw.match(/(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
+  if (m) return { r: +m[1], g: +m[2], b: +m[3] };
+  return { r: 226, g: 255, b: 45 }; // fallback: lime
+}
+
 /**
  * Living hero backdrop: a grid of dots that brighten and swell toward the
  * cursor, with a slow ambient wave. Canvas 2D, DPR-aware, ~60fps.
@@ -23,6 +37,17 @@ export default function HeroBackdrop() {
     const mouse = { x: -9999, y: -9999 };
     let raf = 0;
     let t = 0;
+    let rgb = readAccentRGB();
+
+    // Re-read the accent whenever it changes (AccentPicker mutates :root inline style).
+    const accentObserver = new MutationObserver(() => {
+      rgb = readAccentRGB();
+      if (reduced) draw(); // looped frames repaint themselves; static frame needs a nudge
+    });
+    accentObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["style"],
+    });
 
     const resize = () => {
       const parent = canvas.parentElement!;
@@ -54,7 +79,7 @@ export default function HeroBackdrop() {
           const alpha = 0.16 + wave * 0.05 + near * 0.85;
           ctx.beginPath();
           ctx.arc(x, y, Math.max(0.2, r), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(226, 255, 45, ${Math.min(1, alpha)})`;
+          ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${Math.min(1, alpha)})`;
           ctx.fill();
         }
       }
@@ -89,6 +114,7 @@ export default function HeroBackdrop() {
 
     return () => {
       cancelAnimationFrame(raf);
+      accentObserver.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseout", onLeave);

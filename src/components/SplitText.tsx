@@ -13,7 +13,8 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export default function SplitText({ text, className, delay = 0, stagger = 0.04 }: Props) {
   const letters = Array.from(text);
   return (
-    <span className={`split ${className ?? ""}`} aria-label={text}>
+    <span className={`split ${className ?? ""}`}>
+      <span className="sr-only">{text}</span>
       {letters.map((ch, i) => (
         <span className="split-mask" key={i} aria-hidden="true">
           <motion.span

@@ -40,10 +40,10 @@ export default function Nav() {
   return (
     <header className={`nav ${scrolled ? "scrolled" : ""}`}>
       <div className="container nav-inner">
-        <a href="#top" className="brand" aria-label={`${profile.name} — home`}>
-          <span className="brand-badge">
+        <a href="#top" className="brand">
+          <span className="brand-badge" aria-hidden="true">
             <span className={`brand-mark ${pastHero ? "hide" : ""}`}>{profile.initials}</span>
-            <img className={`nav-avatar ${pastHero ? "show" : ""}`} src="/avatar.jpg" alt="" />
+            <img className={`nav-avatar ${pastHero ? "show" : ""}`} src="/avatar.webp" alt="" width="38" height="38" />
           </span>
           <span>{profile.name}</span>
         </a>

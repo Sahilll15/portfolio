@@ -82,7 +82,7 @@ export default function Chatbot() {
         ref={fabRef}
         className={`chat-fab ${open ? "open" : ""}`}
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close AI assistant" : "Open AI assistant"}
+        aria-label={open ? "Close AI assistant" : "Chat with the AI assistant"}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 2.2, duration: 0.5, ease }}

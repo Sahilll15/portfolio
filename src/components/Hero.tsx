@@ -127,8 +127,10 @@ export default function Hero() {
               <div className="portrait-photo-wrap">
                 <img
                   className="portrait-photo"
-                  src="/avatar.jpg"
+                  src="/avatar.webp"
                   alt={`${profile.name} — ${profile.role}`}
+                  width="512"
+                  height="512"
                   onError={() => setHasPhoto(false)}
                 />
                 <span className="portrait-tint" aria-hidden="true" />

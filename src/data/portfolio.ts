@@ -34,6 +34,10 @@ import { TbTestPipe } from "react-icons/tb";
  *  The form opens the visitor's mail client (mailto:) addressed here. */
 export const CONTACT_EMAIL = "sahilchalke1011@gmail.com";
 
+/** Free access key from web3forms.com (create it with your email).
+ *  Empty = the contact form falls back to opening the visitor's mail app. */
+export const WEB3FORMS_KEY = "";
+
 export const profile = {
   name: "Sahil Chalke",
   firstName: "Sahil",
