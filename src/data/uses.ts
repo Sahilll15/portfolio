@@ -1,9 +1,18 @@
 import type { IconType } from "react-icons";
-import { FiTerminal, FiCode, FiServer, FiCheckCircle, FiPenTool, FiCpu } from "react-icons/fi";
+import {
+  FiTerminal,
+  FiGitBranch,
+  FiCode,
+  FiServer,
+  FiCheckCircle,
+  FiZap,
+  FiGrid,
+  FiCpu,
+} from "react-icons/fi";
 
 /* ------------------------------------------------------------------
-   The /uses page — tools, stack and gear.
-   Everything here is real; tweak the Hardware list to your exact kit.
+   The /uses page — my actual machine setup.
+   Pulled from the real toolchain; tweak the Hardware list to taste.
    ------------------------------------------------------------------ */
 
 export interface UseItem {
@@ -17,7 +26,7 @@ export interface UseGroup {
 }
 
 export const usesIntro =
-  "The tools I actually reach for every day — to build, test, ship and think. It's a living list; it changes as I do.";
+  "The actual tools on my machine right now — what I reach for to build, test, ship and think. A living list; it changes as I do.";
 
 export const uses: UseGroup[] = [
   {
@@ -25,64 +34,102 @@ export const uses: UseGroup[] = [
     icon: FiTerminal,
     items: [
       { name: "VS Code", note: "daily driver" },
-      { name: "Cursor", note: "AI pair-programming" },
-      { name: "IntelliJ IDEA", note: "heavy refactors" },
-      { name: "JetBrains Mono", note: "editor font" },
-      { name: "zsh + Oh My Zsh", note: "shell" },
-      { name: "Postman", note: "API testing" },
+      { name: "Neovim", note: "vim mode in-editor" },
+      { name: "Cursor", note: "AI editor" },
+      { name: "Warp + iTerm2", note: "terminals" },
+      { name: "zsh + Oh My Zsh", note: "Powerlevel10k" },
+      { name: "Starship", note: "prompt" },
+      { name: "MesloLG Nerd Font", note: "editor font" },
+      { name: "Bruno · Postman", note: "API clients" },
+    ],
+  },
+  {
+    title: "Version Control",
+    icon: FiGitBranch,
+    items: [
+      { name: "Git", note: "+ delta diffs" },
+      { name: "GitHub CLI (gh)" },
+      { name: "GitLens", note: "VS Code" },
+      { name: "Git History", note: "VS Code" },
+      { name: "GitHub Pull Requests", note: "VS Code" },
+      { name: "lazygit", note: "terminal UI" },
+      { name: "Jujutsu (jj) + jjui", note: "next-gen VCS" },
+      { name: "Talisman", note: "secret scanning" },
     ],
   },
   {
     title: "Languages & Frameworks",
     icon: FiCode,
     items: [
-      { name: "TypeScript", note: "everywhere" },
+      { name: "TypeScript / JavaScript" },
       { name: "React + Next.js" },
-      { name: "Node.js + Express" },
+      { name: "Node.js + Express", note: "nvm" },
+      { name: "Flutter + Dart" },
       { name: "Swift", note: "native iOS" },
+      { name: "Python", note: "+ Jupyter" },
+      { name: "Java", note: "Maven · Gradle" },
+      { name: "C++", note: "CMake" },
+      { name: "Solidity", note: "Hardhat" },
       { name: "Tailwind CSS" },
-      { name: "C++", note: "DSA" },
     ],
   },
   {
-    title: "Data, Cloud & Infra",
+    title: "Data, Cloud & DevOps",
     icon: FiServer,
     items: [
-      { name: "MongoDB" },
+      { name: "MongoDB", note: "Compass + shell" },
       { name: "PostgreSQL + Prisma" },
-      { name: "Firebase" },
+      { name: "MySQL · Redis" },
+      { name: "Docker + Colima" },
+      { name: "Kubernetes", note: "minikube · kubectl" },
+      { name: "Terraform" },
       { name: "AWS", note: "EC2 · S3 · SSM" },
-      { name: "Docker" },
-      { name: "Vercel", note: "this site lives here" },
-      { name: "Git + GitHub" },
+      { name: "Vercel", note: "this site" },
+      { name: "ngrok", note: "tunneling" },
+      { name: "GitHub Actions", note: "CI" },
     ],
   },
   {
     title: "Testing & Quality",
     icon: FiCheckCircle,
     items: [
-      { name: "Playwright", note: "E2E automation" },
-      { name: "oxlint", note: "fast linting" },
-      { name: "GitHub Actions", note: "CI" },
+      { name: "Playwright", note: "E2E" },
+      { name: "Jest", note: "unit tests" },
+      { name: "ESLint + Prettier" },
+      { name: "oxlint", note: "fast lint" },
+      { name: "Error Lens", note: "inline errors" },
+      { name: "Console Ninja + Quokka", note: "live runtime" },
     ],
   },
   {
-    title: "Design & Thinking",
-    icon: FiPenTool,
+    title: "AI Coding",
+    icon: FiZap,
     items: [
-      { name: "Figma", note: "UI design" },
-      { name: "Obsidian", note: "my second brain" },
-      { name: "Claude Code", note: "AI dev workflow" },
-      { name: "Excalidraw", note: "quick diagrams" },
+      { name: "Claude Code", note: "primary" },
+      { name: "ChatGPT", note: "in VS Code" },
+      { name: "Fitten Code", note: "completions" },
+      { name: "Pieces", note: "snippets + context" },
+    ],
+  },
+  {
+    title: "Apps & Window Management",
+    icon: FiGrid,
+    items: [
+      { name: "OmniWM", note: "tiling WM" },
+      { name: "Ice", note: "menu bar" },
+      { name: "Raycast", note: "launcher" },
+      { name: "1Password", note: "secrets" },
+      { name: "Obsidian", note: "second brain" },
+      { name: "Notion Calendar" },
+      { name: "Slack" },
     ],
   },
   {
     title: "Hardware & Desk",
     icon: FiCpu,
     items: [
-      { name: "MacBook (Apple Silicon)", note: "main machine" },
+      { name: "MacBook", note: "Apple Silicon" },
       { name: "External monitor" },
-      { name: "Mechanical keyboard" },
       { name: "iPhone", note: "iOS testing" },
       { name: "Headphones", note: "focus mode" },
     ],

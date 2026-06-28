@@ -15,11 +15,10 @@ const escXml = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const escAttr = (s) => escXml(s);
 
-// Dynamic OG image URL (served by the /api/og edge function)
-const ogImage = ({ title, category = "", readTime = "" }) =>
-  `${SITE}/api/og?title=${encodeURIComponent(title)}` +
-  (category ? `&category=${encodeURIComponent(category)}` : "") +
-  (readTime ? `&readTime=${encodeURIComponent(readTime)}` : "");
+// NOTE: the dynamic /api/og edge function isn't Edge-bundleable yet, so we point
+// og:image at the reliable static share card for now (works in every scraper).
+// eslint-disable-next-line no-unused-vars
+const ogImage = (_post) => `${SITE}/og.png`;
 
 // --- parse posts out of the data file (fields are in a fixed order) ---
 const blogSrc = readFileSync(join(root, "src/data/blog.ts"), "utf8");
