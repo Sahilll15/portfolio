@@ -4,6 +4,7 @@ import { SiLeetcode } from "react-icons/si";
 import { FiArrowUpRight, FiArrowUp, FiCopy, FiCheck, FiMail } from "react-icons/fi";
 import Magnetic from "./Magnetic";
 import Reveal from "./Reveal";
+import Globe from "./Globe";
 import { profile, CONTACT_EMAIL } from "../data/portfolio";
 
 const LINKS = [
@@ -43,7 +44,7 @@ export default function Footer() {
 
   return (
     <footer className="footer" id="connect">
-      <div className="footer-arc" aria-hidden="true" />
+      <Globe />
       <div className="container footer-inner">
         <div className="footer-cta">
           <Reveal>

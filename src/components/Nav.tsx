@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import Magnetic from "./Magnetic";
+import ThemeToggle from "./ThemeToggle";
 import { profile } from "../data/portfolio";
 
 const LINKS = [
@@ -54,6 +55,7 @@ export default function Nav() {
         </nav>
 
         <div className="nav-cta">
+          <ThemeToggle />
           <Magnetic>
             <a className="btn btn-primary" href="#contact">
               Let's talk <FiArrowUpRight />

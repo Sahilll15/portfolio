@@ -5,6 +5,25 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Set theme before first paint to avoid a flash of the wrong palette -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t !== "light" && t !== "dark") {
+            t =
+              window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+          }
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+
     <title>Sahil Chalke — Full Stack Developer</title>
     <meta
       name="description"
@@ -13,6 +32,7 @@
     <meta name="author" content="Sahil Chalke" />
 
     <link rel="canonical" href="https://sahilchalke.com/" />
+    <link rel="alternate" type="application/rss+xml" title="Sahil Chalke — Writing" href="https://sahilchalke.com/rss.xml" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />

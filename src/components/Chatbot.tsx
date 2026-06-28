@@ -35,6 +35,13 @@ export default function Chatbot() {
     if (open) setTimeout(() => inputRef.current?.focus(), 350);
   }, [open]);
 
+  // Allow the command palette (or anything) to open the chat.
+  useEffect(() => {
+    const onOpen = () => setOpen(true);
+    window.addEventListener("open-chat", onOpen);
+    return () => window.removeEventListener("open-chat", onOpen);
+  }, []);
+
   // Close when clicking outside the panel (but not on the launcher).
   useEffect(() => {
     if (!open) return;
