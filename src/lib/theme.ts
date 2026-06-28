@@ -52,16 +52,11 @@ export function initAccent() {
 export type ThemeName = "dark" | "light";
 const THEME_KEY = "theme";
 
-/** Resolve the theme: saved choice wins, else OS preference, else dark (brand default). */
+/** Resolve the theme: an explicit saved choice wins; otherwise dark (brand default). */
 export function getTheme(): ThemeName {
   try {
     const saved = localStorage.getItem(THEME_KEY);
     if (saved === "light" || saved === "dark") return saved;
-  } catch {
-    /* ignore */
-  }
-  try {
-    if (window.matchMedia?.("(prefers-color-scheme: light)").matches) return "light";
   } catch {
     /* ignore */
   }
