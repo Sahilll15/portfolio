@@ -15,10 +15,11 @@ const escXml = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const escAttr = (s) => escXml(s);
 
-// NOTE: the dynamic /api/og edge function isn't Edge-bundleable yet, so we point
-// og:image at the reliable static share card for now (works in every scraper).
-// eslint-disable-next-line no-unused-vars
-const ogImage = (_post) => `${SITE}/og.png`;
+// Per-post static share cards live at /og/<slug>.png (prebaked via
+// scripts/gen-og-gallery.mjs + element screenshots — no Edge function needed).
+// Falls back to the site card for pages without a slug.
+const ogImage = (post) =>
+  post && post.slug ? `${SITE}/og/${post.slug}.png` : `${SITE}/og.png`;
 
 // --- parse posts out of the data file (fields are in a fixed order) ---
 const blogSrc = readFileSync(join(root, "src/data/blog.ts"), "utf8");
